@@ -22,7 +22,6 @@ export class QueryEditor extends PureComponent<Props> {
 
     return (
       <div className="gf-form">
-
         <FormField
           labelWidth={8}
           value={queryText || ''}

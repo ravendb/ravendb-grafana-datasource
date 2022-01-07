@@ -38,11 +38,12 @@ export class ConfigEditor extends PureComponent<Props, State> {
         </div>
 
         <DataSourceHttpSettings
-            defaultUrl="http://localhost:8080"
-            dataSourceConfig={options}
-            onChange={onOptionsChange}
-            showAccessOptions={false}
-            sigV4AuthToggleEnabled={false} />
+          defaultUrl="http://localhost:8080"
+          dataSourceConfig={options}
+          onChange={onOptionsChange}
+          showAccessOptions={false}
+          sigV4AuthToggleEnabled={false}
+        />
       </div>
     );
   }

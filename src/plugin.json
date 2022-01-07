@@ -10,7 +10,12 @@
       "name": "Marcin Lewandowski / RavenDB",
       "url": "https://ravendb.net"
     },
-    "keywords": ["database", "nosql", "ravendb", "document-database"],
+    "keywords": [
+      "database",
+      "nosql",
+      "ravendb",
+      "document-database"
+    ],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
