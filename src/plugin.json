@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "RavenDB",
+  "id": "ravendb-datasource",
+  "metrics": true,
+  "info": {
+    "description": "RavenDB Grafana plugin to access RavenDB data",
+    "author": {
+      "name": "Marcin Lewandowski / RavenDB",
+      "url": "https://ravendb.net"
+    },
+    "keywords": ["database", "nosql", "ravendb", "document-database"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://ravendb.net"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/ravendb/ravendb-grafana-datasource/blob/main/LICENSE"
+      }
+    ],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "plugins": []
+  }
+}
