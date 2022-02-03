@@ -1,18 +1,18 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import { DataSourceHttpSettings, LegacyForms } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
-import { MyDataSourceOptions } from './types';
+import { RavenDataSourceOptions } from './types';
 
 const { FormField } = LegacyForms;
 
-interface Props extends DataSourcePluginOptionsEditorProps<MyDataSourceOptions> {}
+interface Props extends DataSourcePluginOptionsEditorProps<RavenDataSourceOptions> {}
 
 interface State {}
 
 export class ConfigEditor extends PureComponent<Props, State> {
   onDatabaseNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { onOptionsChange, options } = this.props;
-    const jsonData: MyDataSourceOptions = {
+    const jsonData: RavenDataSourceOptions = {
       ...options.jsonData,
       database: event.target.value,
     };
