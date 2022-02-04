@@ -6,10 +6,11 @@ import {
   DataSourceInstanceSettings,
   MetricFindValue,
 } from '@grafana/data';
-import { FetchError, getBackendSrv, getTemplateSrv } from '@grafana/runtime';
+import { FetchError, frameToMetricFindValue, getBackendSrv, getTemplateSrv } from '@grafana/runtime';
 
-import { RavenDataSourceOptions, RavenQuery } from './types';
+import { QueryResponseDto, RavenDataSourceOptions, RavenQuery, RavenVariableQuery } from './types';
 import { responseToDataFrame } from './DataFrameUtils';
+import { FetchResponse } from '@grafana/runtime/services/backendSrv';
 
 export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions> {
   private readonly url?: string;
@@ -22,33 +23,49 @@ export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions
     this.database = instanceSettings.jsonData.database;
   }
 
-  fetchMetricNames(a: any, b: any) {
-    //TODO:
-    console.log('fetchMetricNames');
+  async metricFindQuery(query: RavenVariableQuery, optionalOptions?: any): Promise<MetricFindValue[]> {
+    let refId = 'tempvar';
+    if (optionalOptions && optionalOptions.variable && optionalOptions.variable.name) {
+      refId = optionalOptions.variable.name;
+    }
 
-    return {
-      data: [{ name: 'test1' }],
+    //tODO: support for templates - range + other variables? - support for nesting variables!
+
+    const rql = getTemplateSrv().replace(query.rawQuery, optionalOptions.scopedVars);
+    const payload = {
+      Query: rql,
     };
+
+    const fetch = getBackendSrv().fetch<QueryResponseDto>({
+      method: 'POST',
+      url: this.url + '/databases/' + this.database + '/queries',
+      data: payload,
+      requestId: refId,
+    });
+
+    const response = await fetch.toPromise();
+    const frames = responseToDataFrame(response.data);
+
+    if (!frames || frames.length === 0) {
+      return [];
+    }
+
+    return frameToMetricFindValue(frames[0]);
   }
 
-  async metricFindQuery(query: any, options?: any): Promise<MetricFindValue[]> {
-    // Retrieve DataQueryResponse based on query.
-    const response = await this.fetchMetricNames(query.namespace, query.rawQuery);
-
-    // Convert query results to a MetricFindValue[]
-    return response.data.map(frame => ({ text: frame.name }));
-  }
-
-  async doRequest(query: RavenQuery, options: DataQueryRequest<RavenQuery>) {
+  doRequest(query: RavenQuery, options: DataQueryRequest<RavenQuery>): Promise<FetchResponse<QueryResponseDto>> {
     const rql = getTemplateSrv().replace(query.queryText, options.scopedVars);
     const payload = {
       Query: rql,
     };
-    return await getBackendSrv().datasourceRequest({
+
+    const fetch = getBackendSrv().fetch<QueryResponseDto>({
       method: 'POST',
       url: this.url + '/databases/' + this.database + '/queries?addTimeSeriesNames=true&addSpatialProperties=true',
       data: payload,
     });
+
+    return fetch.toPromise();
   }
 
   async query(options: DataQueryRequest<RavenQuery>): Promise<DataQueryResponse> {
@@ -59,8 +76,8 @@ export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions
 
     const result: DataFrame[] = [];
 
-    const allProm = await Promise.all(promises);
-    allProm.forEach(x => result.push(...x));
+    const allTasks = await Promise.all(promises);
+    allTasks.forEach(task => task.forEach(frame => result.push(frame)));
     return {
       data: result,
     };

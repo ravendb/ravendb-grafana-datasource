@@ -25,7 +25,7 @@ export interface RavenVariableQuery {
 export interface QueryMetadataDto {
   '@id'?: string;
   '@projection'?: boolean;
-  '@timeseries-named-values'?: string[]; //tODO? support for named values
+  '@timeseries-named-values'?: string[];
 }
 
 export interface QueryResponseDto<T = any> {
