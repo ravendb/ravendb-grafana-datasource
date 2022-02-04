@@ -69,7 +69,7 @@ export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions
   }
 
   async query(options: DataQueryRequest<RavenQuery>): Promise<DataQueryResponse> {
-    const promises = options.targets.map(async query => {
+    const promises = options.targets.map(async (query) => {
       const response = await this.doRequest(query, options);
       return responseToDataFrame(response.data);
     });
@@ -77,7 +77,7 @@ export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions
     const result: DataFrame[] = [];
 
     const allTasks = await Promise.all(promises);
-    allTasks.forEach(task => task.forEach(frame => result.push(frame)));
+    allTasks.forEach((task) => task.forEach((frame) => result.push(frame)));
     return {
       data: result,
     };

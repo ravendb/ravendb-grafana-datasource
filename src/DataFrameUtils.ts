@@ -11,15 +11,15 @@ import { Labels } from '@grafana/data/types/data';
 export function responseToDataFrame(response: QueryResponseDto): DataFrame[] {
   if (response.TimeSeriesFields?.length === 0) {
     // inline time series
-    return response.Results.map(x => timeSeriesToDataFrame(x, x['@metadata']['@id'], undefined));
+    return response.Results.map((x) => timeSeriesToDataFrame(x, x['@metadata']['@id'], undefined));
   }
   if (response.TimeSeriesFields && response.TimeSeriesFields.length > 0) {
     // time series with alias
     const timeSeriesColumns = response.TimeSeriesFields;
     const frames: DataFrame[] = [];
 
-    response.Results.forEach(result => {
-      timeSeriesColumns.forEach(column => {
+    response.Results.forEach((result) => {
+      timeSeriesColumns.forEach((column) => {
         const ts = result[column];
         const id = result['@metadata']['@id'];
         if (ts) {
@@ -68,13 +68,13 @@ function detectValuesCount(dto: TimeSeriesQueryResultDto): number {
       if (keys.length) {
         const firstKey = keys[0];
 
-        return max(groupedValues, x => x[firstKey]?.length ?? 0) ?? 0;
+        return max(groupedValues, (x) => x[firstKey]?.length ?? 0) ?? 0;
       } else {
         return 0;
       }
     case 'raw':
       const rawValues = dto.Results as TimeSeriesRawItemResultDto[];
-      return max(rawValues, x => x.Values.length) ?? 0;
+      return max(rawValues, (x) => x.Values.length) ?? 0;
   }
 }
 
@@ -96,16 +96,16 @@ function max<T>(array: T[], accessor: (value: T) => number): number | undefined 
 
 function detectGroupKeys(groupedValues: TimeSeriesQueryGroupedItemResultDto[]): string[] {
   const allKeys = Object.keys(groupedValues[0]);
-  const keyWithOutRange = allKeys.filter(x => x !== 'From' && x !== 'To' && x !== 'Key');
+  const keyWithOutRange = allKeys.filter((x) => x !== 'From' && x !== 'To' && x !== 'Key');
   // server added Count property every time, so we filter it out, unless only Count is available in result
   if (keyWithOutRange.length === 1 && keyWithOutRange[0] === 'Count') {
     return ['Count'];
   }
-  return keyWithOutRange.filter(x => x !== 'Count');
+  return keyWithOutRange.filter((x) => x !== 'Count');
 }
 
 function getSeriesValuesNames(valuesCount: number, dto: TimeSeriesQueryResultDto) {
-  const seriesValuesName = [...Array(valuesCount).keys()].map(x => 'Value #' + (x + 1));
+  const seriesValuesName = Array.from(Array(valuesCount).keys()).map((x) => 'Value #' + (x + 1));
 
   if (dto && dto['@metadata'] && dto['@metadata']['@timeseries-named-values']) {
     const namedValues = dto['@metadata']['@timeseries-named-values'];
@@ -136,11 +136,11 @@ function groupedTimeSeriesToDataFrame(
 
   const valueFields: FieldDTO[] = [];
 
-  seriesPrefixNames.forEach(prefix => {
+  seriesPrefixNames.forEach((prefix) => {
     seriesValuesName.forEach((valueName, valueIdx) => {
       const values: number[] = [];
 
-      groupedValues.forEach(v => {
+      groupedValues.forEach((v) => {
         values.push((v as any)[prefix][valueIdx]);
       });
 
@@ -164,12 +164,12 @@ function groupedTimeSeriesToDataFrame(
     });
   });
 
-  groupedValues.forEach(result => {
+  groupedValues.forEach((result) => {
     timeValues.push(result.From);
   });
 
   const dto: DataFrameDTO = {
-    fields: [timeField, ...valueFields],
+    fields: [timeField].concat(valueFields),
   };
 
   return new MutableDataFrame(dto);
@@ -188,7 +188,7 @@ function rawTimeSeriesToDataFrame(data: TimeSeriesQueryResultDto, id: string, al
   const seriesValuesName = getSeriesValuesNames(valuesCount, data);
   const allValues: number[][] = [];
 
-  const valueFields: FieldDTO[] = [...Array(valuesCount).keys()].map(idx => {
+  const valueFields: FieldDTO[] = Array.from(Array(valuesCount).keys()).map((idx) => {
     const values: number[] = [];
     allValues.push(values);
     const labels: Labels = {
@@ -207,7 +207,7 @@ function rawTimeSeriesToDataFrame(data: TimeSeriesQueryResultDto, id: string, al
     };
   });
 
-  results.forEach(result => {
+  results.forEach((result) => {
     timeValues.push(result.Timestamp);
     for (let i = 0; i < valuesCount; i++) {
       allValues[i].push(result.Values[i]);
@@ -215,7 +215,7 @@ function rawTimeSeriesToDataFrame(data: TimeSeriesQueryResultDto, id: string, al
   });
 
   const dto: DataFrameDTO = {
-    fields: [timeField, ...valueFields],
+    fields: [timeField].concat(valueFields),
   };
   return new MutableDataFrame(dto);
 }

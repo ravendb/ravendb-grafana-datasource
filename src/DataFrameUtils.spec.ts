@@ -25,7 +25,7 @@ interface MarketingEvent {
   time: string;
 }
 
-describe('DataFrameUtils', function() {
+describe('DataFrameUtils', function () {
   it('can convert object list to data frame', () => {
     const employees: Person[] = [
       {
@@ -116,10 +116,10 @@ describe('DataFrameUtils', function() {
       id: 'products/77-A',
     });
 
-    const rawTimes = rawResults.map(x => x.Timestamp);
+    const rawTimes = rawResults.map((x) => x.Timestamp);
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
-    const rawValues = rawResults.map(x => x.Values[0]);
+    const rawValues = rawResults.map((x) => x.Values[0]);
     expect(valueField.values.toArray()).toEqual(rawValues);
   });
 
@@ -150,10 +150,10 @@ describe('DataFrameUtils', function() {
       field: 'Average',
     });
 
-    const rawTimes = rawResults.map(x => x.From);
+    const rawTimes = rawResults.map((x) => x.From);
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
-    const rawValues = rawResults.map(x => x.Average?.[0]);
+    const rawValues = rawResults.map((x) => x.Average?.[0]);
     expect(valueField.values.toArray()).toEqual(rawValues);
   });
 
@@ -185,10 +185,10 @@ describe('DataFrameUtils', function() {
       id: 'products/77-A',
     });
 
-    const rawTimes = rawResults.map(x => x.Timestamp);
+    const rawTimes = rawResults.map((x) => x.Timestamp);
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
-    const rawValues = rawResults.map(x => x.Values[0]);
+    const rawValues = rawResults.map((x) => x.Values[0]);
     expect(valueField.values.toArray()).toEqual(rawValues);
   });
 
@@ -221,10 +221,10 @@ describe('DataFrameUtils', function() {
       id: 'products/76-A',
     });
 
-    const rawTimes = rawResults.map(x => x.From);
+    const rawTimes = rawResults.map((x) => x.From);
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
-    const rawValues = rawResults.map(x => x.Average?.[0]);
+    const rawValues = rawResults.map((x) => x.Average?.[0]);
     expect(valueField.values.toArray()).toEqual(rawValues);
   });
 
@@ -322,10 +322,10 @@ describe('DataFrameUtils', function() {
       id: 'employees/6-A',
     });
 
-    const rawTimes = rawResults.map(x => x.Timestamp);
+    const rawTimes = rawResults.map((x) => x.Timestamp);
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
-    const rawValues = rawResults.map(x => x.Values[0]);
+    const rawValues = rawResults.map((x) => x.Values[0]);
     expect(valueField.values.toArray()).toEqual(rawValues);
   });
 
@@ -356,10 +356,10 @@ describe('DataFrameUtils', function() {
       field: 'First',
     });
 
-    const rawTimes = rawResults.map(x => x.From);
+    const rawTimes = rawResults.map((x) => x.From);
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
-    const rawValues = rawResults.map(x => x.First?.[0]);
+    const rawValues = rawResults.map((x) => x.First?.[0]);
     expect(valueField.values.toArray()).toEqual(rawValues);
   });
 });
