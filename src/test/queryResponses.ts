@@ -1,6 +1,6 @@
 import { TimeSeriesQueryDto } from '../types';
 
-export const inlineTimeSeriesResultNoGroup: TimeSeriesQueryDto = {
+export const inlineTimeSeriesResultNoGroup: () => TimeSeriesQueryDto = () => ({
   Results: [
     {
       Count: 2,
@@ -24,9 +24,9 @@ export const inlineTimeSeriesResultNoGroup: TimeSeriesQueryDto = {
     },
   ],
   TimeSeriesFields: [],
-};
+});
 
-export const namedTimeSeriesResultNoGroup: TimeSeriesQueryDto = {
+export const aliasedTimeSeriesResultNoGroup: () => TimeSeriesQueryDto = () => ({
   Results: [
     {
       t1: {
@@ -53,9 +53,9 @@ export const namedTimeSeriesResultNoGroup: TimeSeriesQueryDto = {
     },
   ],
   TimeSeriesFields: ['t1'],
-};
+});
 
-export const inlineTimeSeriesResultWithGroup: TimeSeriesQueryDto = {
+export const inlineTimeSeriesResultWithGroup: () => TimeSeriesQueryDto = () => ({
   Results: [
     {
       Count: 2,
@@ -81,9 +81,9 @@ export const inlineTimeSeriesResultWithGroup: TimeSeriesQueryDto = {
     },
   ],
   TimeSeriesFields: [],
-};
+});
 
-export const namedTimeSeriesResultWithGroup: TimeSeriesQueryDto = {
+export const aliasedTimeSeriesResultWithGroup: () => TimeSeriesQueryDto = () => ({
   Results: [
     {
       ts1: {
@@ -112,9 +112,9 @@ export const namedTimeSeriesResultWithGroup: TimeSeriesQueryDto = {
     },
   ],
   TimeSeriesFields: ['ts1'],
-};
+});
 
-export const complexTimeSeriesResult: TimeSeriesQueryDto = {
+export const complexTimeSeriesResult: () => TimeSeriesQueryDto = () => ({
   Results: [
     {
       t1: {
@@ -207,4 +207,70 @@ export const complexTimeSeriesResult: TimeSeriesQueryDto = {
     },
   ],
   TimeSeriesFields: ['t1', 't2'],
-};
+});
+
+export const namedTimeSeriesResultNoGroup: () => TimeSeriesQueryDto = () => ({
+  Results: [
+    {
+      Count: 2,
+      Results: [
+        {
+          Tag: 'watches/fitbit',
+          Timestamp: '2020-05-17T00:00:00.0000000Z',
+          Values: [70.00451313215518],
+          IsRollup: false,
+        },
+        {
+          Tag: 'watches/fitbit',
+          Timestamp: '2020-05-17T00:01:00.0000000Z',
+          Values: [71.07530383210411],
+          IsRollup: false,
+        },
+      ],
+      '@metadata': {
+        '@timeseries-named-values': ['BPM'],
+        '@id': 'employees/6-A',
+      },
+    },
+  ],
+  TimeSeriesFields: [],
+});
+
+export const namedTimeSeriesResultWithGroup: () => TimeSeriesQueryDto = () => ({
+  Results: [
+    {
+      Count: 2,
+      Results: [
+        {
+          From: '2020-05-17T00:00:00.0000000Z',
+          To: '2020-05-17T01:00:00.0000000Z',
+          Key: null,
+          First: [70.00451313215518],
+          Last: [68.662829244818],
+          Min: [62.34419380889469],
+          Max: [79.06648734191734],
+          Sum: [4213.375390145637],
+          Count: [60.0],
+          Average: [70.22292316909395],
+        },
+        {
+          From: '2020-05-17T01:00:00.0000000Z',
+          To: '2020-05-17T02:00:00.0000000Z',
+          Key: null,
+          First: [66.16448135751509],
+          Last: [63.30604340569398],
+          Min: [60.97291537256581],
+          Max: [76.15501620976953],
+          Sum: [3982.0681992951168],
+          Count: [60.0],
+          Average: [66.36780332158528],
+        },
+      ],
+      '@metadata': {
+        '@timeseries-named-values': ['BPM'],
+        '@id': 'employees/6-A',
+      },
+    },
+  ],
+  TimeSeriesFields: [],
+});

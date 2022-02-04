@@ -31,7 +31,6 @@ export function responseToDataFrame(response: QueryResponseDto): DataFrame[] {
     return frames;
   }
 
-  //TODO: we might detect if some well know column exists (ie. _time) and register time column
   return [toDataFrame(response.Results)];
 }
 
@@ -105,9 +104,17 @@ function detectGroupKeys(groupedValues: TimeSeriesQueryGroupedItemResultDto[]): 
   return keyWithOutRange.filter(x => x !== 'Count');
 }
 
-function getSeriesValuesNames(valuesCount: number, data: any) {
-  //TODO: avoid any + use mapped values!
-  return [...Array(valuesCount).keys()].map(x => 'Value #' + (x + 1));
+function getSeriesValuesNames(valuesCount: number, dto: TimeSeriesQueryResultDto) {
+  const seriesValuesName = [...Array(valuesCount).keys()].map(x => 'Value #' + (x + 1));
+
+  if (dto && dto['@metadata'] && dto['@metadata']['@timeseries-named-values']) {
+    const namedValues = dto['@metadata']['@timeseries-named-values'];
+    for (let i = 0; i < namedValues.length; i++) {
+      seriesValuesName[i] = namedValues[i];
+    }
+  }
+
+  return seriesValuesName;
 }
 
 function groupedTimeSeriesToDataFrame(
@@ -147,7 +154,7 @@ function groupedTimeSeriesToDataFrame(
       }
 
       const fieldDto: FieldDTO = {
-        name: valueName,
+        name: prefix + ' - ' + valueName,
         values,
         labels,
         type: FieldType.number,
@@ -186,7 +193,6 @@ function rawTimeSeriesToDataFrame(data: TimeSeriesQueryResultDto, id: string, al
     allValues.push(values);
     const labels: Labels = {
       id,
-      field: 'Values', //TODO: this is static, do we want this?
     };
 
     if (alias) {
