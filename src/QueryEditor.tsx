@@ -3,10 +3,10 @@ import defaults from 'lodash/defaults';
 import React, { PureComponent } from 'react';
 import { QueryField } from '@grafana/ui';
 import { QueryEditorProps } from '@grafana/data';
-import { DataSource } from './datasource';
+import { RavenDBDataSource } from './datasource';
 import { defaultQuery, RavenDataSourceOptions, RavenQuery } from './types';
 
-type Props = QueryEditorProps<DataSource, RavenQuery, RavenDataSourceOptions>;
+type Props = QueryEditorProps<RavenDBDataSource, RavenQuery, RavenDataSourceOptions>;
 
 export class QueryEditor extends PureComponent<Props> {
   render() {

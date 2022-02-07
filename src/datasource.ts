@@ -12,7 +12,7 @@ import { QueryResponseDto, RavenDataSourceOptions, RavenQuery, RavenVariableQuer
 import { responseToDataFrame } from './DataFrameUtils';
 import { FetchResponse } from '@grafana/runtime/services/backendSrv';
 
-export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions> {
+export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions> {
   private readonly url?: string;
   private readonly database?: string;
 
@@ -28,8 +28,6 @@ export class DataSource extends DataSourceApi<RavenQuery, RavenDataSourceOptions
     if (optionalOptions && optionalOptions.variable && optionalOptions.variable.name) {
       refId = optionalOptions.variable.name;
     }
-
-    //tODO: support for templates - range + other variables? - support for nesting variables!
 
     const rql = getTemplateSrv().replace(query.rawQuery, optionalOptions.scopedVars);
     const payload = {
