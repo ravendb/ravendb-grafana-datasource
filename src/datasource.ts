@@ -30,7 +30,7 @@ export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSource
     }
 
     let queryText = query.queryText;
-    queryText = queryText?.replace('$timeFilter', this.getTimeFilter(optionalOptions));
+    queryText = queryText?.replace(/\$timeFilter/gi, this.getTimeFilter(optionalOptions));
 
     const rql = getTemplateSrv().replace(queryText, optionalOptions?.scopedVars || {});
     const payload = {
@@ -56,7 +56,7 @@ export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSource
 
   doRequest(query: RavenQuery, options: DataQueryRequest<RavenQuery>): Promise<FetchResponse<QueryResponseDto>> {
     let queryText = query.queryText;
-    queryText = queryText?.replace('$timeFilter', this.getTimeFilter(options));
+    queryText = queryText?.replace(/\$timeFilter/gi, this.getTimeFilter(options));
 
     const rql = getTemplateSrv().replace(queryText, options.scopedVars);
     const payload = {

@@ -57,7 +57,7 @@ describe('RavenDBDatasource', () => {
 
     it('can replace time range', async () => {
       const query: RavenVariableQuery = {
-        queryText: 'from Employees where Date between $timeFilter',
+        queryText: 'from Employees where Date between $timeFilter and Date2 between $timeFilter',
       };
 
       const options: any = {
@@ -75,7 +75,7 @@ describe('RavenDBDatasource', () => {
       expect(call).toHaveLength(1);
       const actualQuery = call[0].data.Query;
       expect(actualQuery).toEqual(
-        'from Employees where Date between "2022-02-14T06:23:20.066Z" and "2022-02-14T06:23:42.222Z"'
+        'from Employees where Date between "2022-02-14T06:23:20.066Z" and "2022-02-14T06:23:42.222Z" and Date2 between "2022-02-14T06:23:20.066Z" and "2022-02-14T06:23:42.222Z"'
       );
     });
   });
@@ -116,7 +116,7 @@ describe('RavenDBDatasource', () => {
         },
         targets: [
           {
-            queryText: 'from Employees where Date between $timeFilter',
+            queryText: 'from Employees where Date between $timeFilter or Date2 between $timeFilter',
           },
         ],
       };
@@ -129,7 +129,7 @@ describe('RavenDBDatasource', () => {
       expect(call).toHaveLength(1);
       const actualQuery = call[0].data.Query;
       expect(actualQuery).toEqual(
-        'from Employees where Date between "2022-02-14T06:23:20.066Z" and "2022-02-14T06:23:42.222Z"'
+        'from Employees where Date between "2022-02-14T06:23:20.066Z" and "2022-02-14T06:23:42.222Z" or Date2 between "2022-02-14T06:23:20.066Z" and "2022-02-14T06:23:42.222Z"'
       );
     });
   });
