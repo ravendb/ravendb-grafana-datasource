@@ -1,6 +1,6 @@
 # RavenDB Grafana Data Source Plugin
 
-[![Build](https://github.com/grafana/grafana-starter-datasource/workflows/CI/badge.svg)](https://github.com/grafana/grafana-starter-datasource/actions?query=workflow%3A%22CI%22)
+[![Build](https://github.com/ravendb/ravendb-grafana-datasource/workflows/CI/badge.svg)](https://github.com/ravendb/ravendb-grafana-datasource/actions?query=workflow%3A%22CI%22)
 
 This plugin allows you to connect your RavenDB to Grafana as datasource.
 
