@@ -7,6 +7,7 @@ import {
   aliasedTimeSeriesResultWithGroup,
   namedTimeSeriesResultNoGroup,
   namedTimeSeriesResultWithGroup,
+  employeesQueryResult,
 } from './test/queryResponses';
 import {
   AliasedTimeSeriesQueryResultDto,
@@ -15,11 +16,6 @@ import {
   TimeSeriesRawItemResultDto,
 } from './types';
 
-interface Person {
-  name: string;
-  age: number;
-}
-
 interface MarketingEvent {
   name: string;
   time: string;
@@ -27,19 +23,8 @@ interface MarketingEvent {
 
 describe('DataFrameUtils', function () {
   it('can convert object list to data frame', () => {
-    const employees: Person[] = [
-      {
-        name: 'John',
-        age: 43,
-      },
-      {
-        name: 'Stacy',
-        age: 35,
-      },
-    ];
-
     const frames = responseToDataFrame({
-      Results: employees,
+      Results: employeesQueryResult(),
     });
 
     expect(frames).toHaveLength(1);

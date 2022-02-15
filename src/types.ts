@@ -19,7 +19,7 @@ export interface RavenDataSourceOptions extends DataSourceJsonData {
 export interface RavenSecureJsonData {}
 
 export interface RavenVariableQuery {
-  rawQuery: string;
+  queryText: string;
 }
 
 export interface QueryMetadataDto {

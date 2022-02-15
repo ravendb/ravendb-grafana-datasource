@@ -274,3 +274,19 @@ export const namedTimeSeriesResultWithGroup: () => TimeSeriesQueryDto = () => ({
   ],
   TimeSeriesFields: [],
 });
+
+export interface Person {
+  name: string;
+  age: number;
+}
+
+export const employeesQueryResult: () => Person[] = () => [
+  {
+    name: 'John',
+    age: 43,
+  },
+  {
+    name: 'Stacy',
+    age: 35,
+  },
+];

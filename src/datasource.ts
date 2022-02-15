@@ -29,7 +29,10 @@ export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSource
       refId = optionalOptions.variable.name;
     }
 
-    const rql = getTemplateSrv().replace(query.rawQuery, optionalOptions.scopedVars);
+    let queryText = query.queryText;
+    queryText = queryText?.replace('$timeFilter', this.getTimeFilter(optionalOptions));
+
+    const rql = getTemplateSrv().replace(queryText, optionalOptions?.scopedVars || {});
     const payload = {
       Query: rql,
     };
@@ -52,7 +55,10 @@ export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSource
   }
 
   doRequest(query: RavenQuery, options: DataQueryRequest<RavenQuery>): Promise<FetchResponse<QueryResponseDto>> {
-    const rql = getTemplateSrv().replace(query.queryText, options.scopedVars);
+    let queryText = query.queryText;
+    queryText = queryText?.replace('$timeFilter', this.getTimeFilter(options));
+
+    const rql = getTemplateSrv().replace(queryText, options.scopedVars);
     const payload = {
       Query: rql,
     };
@@ -83,10 +89,12 @@ export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSource
 
   async testDatasource() {
     try {
-      await getBackendSrv().datasourceRequest({
-        method: 'GET',
-        url: this.url + '/databases/' + this.database + '/stats',
-      });
+      await getBackendSrv()
+        .fetch({
+          method: 'GET',
+          url: this.url + '/databases/' + this.database + '/stats',
+        })
+        .toPromise();
 
       return {
         status: 'success',
@@ -101,6 +109,14 @@ export class RavenDBDataSource extends DataSourceApi<RavenQuery, RavenDataSource
         },
       };
     }
+  }
+
+  private getTimeFilter(options: DataQueryRequest<RavenQuery>): string {
+    if (options.range) {
+      return '"' + options.range.from.toISOString() + '" and "' + options.range.to.toISOString() + '"';
+    }
+
+    return '';
   }
 
   private extractConnectionFailure(e: FetchError): string {

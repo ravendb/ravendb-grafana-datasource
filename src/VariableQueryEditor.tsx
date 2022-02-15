@@ -10,7 +10,7 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, qu
   const [state, setState] = useState(query);
 
   const saveQuery = () => {
-    onChange(state, state.rawQuery);
+    onChange(state, state.queryText);
   };
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) =>
@@ -24,11 +24,11 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, qu
       <div className="gf-form">
         <span className="gf-form-label width-10">Query</span>
         <input
-          name="rawQuery"
+          name="queryText"
           className="gf-form-input"
           onBlur={saveQuery}
           onChange={handleChange}
-          value={state.rawQuery}
+          value={state.queryText}
         />
       </div>
     </>
