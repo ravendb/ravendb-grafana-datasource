@@ -9,7 +9,7 @@ This plugin allows you to connect your RavenDB to Grafana as datasource and quer
 
 Note: For Monitoring RavenDB instance (not its data) please refer to: https://ravendb.net/docs/article-page/5.2/http/server/administration/monitoring
 
-![Screen](img/dashboard_screen.png)
+![Screen](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/dashboard_screen.png)
 
 ## Features
 
@@ -72,7 +72,7 @@ select
    Address.Location.Longitude as Longitude
 ```
 
-![Geospatial query result](img/geospatial.png)
+![Geospatial query result](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/geospatial.png)
 
 ### Time series queries with dynamic group by and range filter
 
