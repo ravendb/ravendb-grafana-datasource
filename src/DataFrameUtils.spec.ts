@@ -15,6 +15,7 @@ import {
   TimeSeriesQueryResultDto,
   TimeSeriesRawItemResultDto,
 } from './types';
+import { dateTime } from '@grafana/data';
 
 interface MarketingEvent {
   name: string;
@@ -135,7 +136,7 @@ describe('DataFrameUtils', function () {
       field: 'Average',
     });
 
-    const rawTimes = rawResults.map((x) => x.From);
+    const rawTimes = rawResults.map((x) => dateTime(x.From));
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
     const rawValues = rawResults.map((x) => x.Average?.[0]);
@@ -206,7 +207,7 @@ describe('DataFrameUtils', function () {
       id: 'products/76-A',
     });
 
-    const rawTimes = rawResults.map((x) => x.From);
+    const rawTimes = rawResults.map((x) => dateTime(x.From));
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
     const rawValues = rawResults.map((x) => x.Average?.[0]);
@@ -341,7 +342,7 @@ describe('DataFrameUtils', function () {
       field: 'First',
     });
 
-    const rawTimes = rawResults.map((x) => x.From);
+    const rawTimes = rawResults.map((x) => dateTime(x.From));
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
     const rawValues = rawResults.map((x) => x.First?.[0]);

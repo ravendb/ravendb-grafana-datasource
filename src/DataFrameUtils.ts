@@ -5,7 +5,16 @@ import {
   TimeSeriesRawItemResultDto,
   TimeSeriesResultType,
 } from './types';
-import { DataFrame, DataFrameDTO, FieldDTO, FieldType, MutableDataFrame, toDataFrame } from '@grafana/data';
+import {
+  DataFrame,
+  DataFrameDTO,
+  dateTime,
+  DateTime,
+  FieldDTO,
+  FieldType,
+  MutableDataFrame,
+  toDataFrame,
+} from '@grafana/data';
 import { Labels } from '@grafana/data/types/data';
 
 export function responseToDataFrame(response: QueryResponseDto): DataFrame[] {
@@ -123,7 +132,7 @@ function groupedTimeSeriesToDataFrame(
   alias: string | undefined
 ): DataFrame {
   const groupedValues = data.Results as TimeSeriesQueryGroupedItemResultDto[];
-  const timeValues: string[] = [];
+  const timeValues: DateTime[] = [];
   const timeField: FieldDTO = {
     name: 'timestamp',
     type: FieldType.time,
@@ -165,7 +174,7 @@ function groupedTimeSeriesToDataFrame(
   });
 
   groupedValues.forEach((result) => {
-    timeValues.push(result.From);
+    timeValues.push(dateTime(result.From));
   });
 
   const dto: DataFrameDTO = {
