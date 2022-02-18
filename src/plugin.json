@@ -30,7 +30,16 @@
         "url": "https://github.com/ravendb/ravendb-grafana-datasource/blob/main/LICENSE"
       }
     ],
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "Dashboard",
+        "path": "img/dashboard_screen.png"
+      },
+      {
+        "name": "Configuration",
+        "path": "img/SetDataSource.png"
+      }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },

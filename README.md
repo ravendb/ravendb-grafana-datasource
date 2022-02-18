@@ -11,10 +11,10 @@ Please refer to: [Monitoring RavenDB Metrics](https://ravendb.net/docs/article-p
 
 All query examples bellow are based on RavenDB's [sample data](https://ravendb.net/docs/article-page/latest/csharp/studio/database/tasks/create-sample-data).
  
-![Screen](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/dashboard_screen.png)
+![Screen](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/dashboard_screen.png)
 
 # Set RavenDB as your data source
-![SetDataSource](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/SetDataSource.png)
+![SetDataSource](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/SetDataSource.png)
 
 [//]: # (![SetDataSource]&#40;../ravendb-grafana-datasource/img/SetDataSource.png&#41;)
 
@@ -85,7 +85,7 @@ select
    Address.Location.Longitude as Longitude
 ```
 
-![Geospatial query result](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/geospatial.png)
+![Geospatial query result](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/geospatial.png)
 
 ### Using Time Macro variables in a time series query
 | Grafana Variable | Description                                                                          | Example                                                   |
@@ -115,26 +115,6 @@ Will be translated to:
 from 'Employees'
 where FirstName in ("Peter", "Anna", "John")
 ```
-
-# Development
-1. Install dependencies
-   ```bash
-   yarn install
-   ```
-
-2. Build plugin in development mode or run in watch mode
-   ```bash
-   yarn dev
-   ```
-   or
-   ```bash
-   yarn watch
-   ```
-
-3. Build plugin in production mode
-   ```bash
-   yarn build
-   ```
 
 # Links
 - [RavenDB](https://ravendb.net)
