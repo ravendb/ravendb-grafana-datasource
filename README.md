@@ -14,7 +14,7 @@ All query examples bellow are based on RavenDB's [sample data](https://ravendb.n
 ![Screen](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/dashboard_screen.png)
 
 # Set RavenDB as your data source
-![SetDataSource](https://github.com/ravendb/ravendb-grafana-datasource/img/SetDataSource.png)
+![SetDataSource](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/img/SetDataSource.png)
 
 [//]: # (![SetDataSource]&#40;../ravendb-grafana-datasource/img/SetDataSource.png&#41;)
 
@@ -29,7 +29,7 @@ All query examples bellow are based on RavenDB's [sample data](https://ravendb.n
 
 
 * **Grafana Variables**  
-  Querying with Grafana variales is supported by the RavenDB plugin.
+  Querying with Grafana variables is supported by the RavenDB plugin.
 
 
 * **Examples**  
