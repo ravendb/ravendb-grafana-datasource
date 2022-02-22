@@ -75,6 +75,9 @@ describe('DataFrameUtils', function () {
     expect(timeField.name).toEqual('time');
     expect(timeField.type).toEqual('time');
     expect(timeField.values.toArray()).toHaveLength(2);
+
+    const rawTimes = events.map((x) => dateTime(x.time));
+    expect(timeField.values.toArray()).toEqual(rawTimes);
   });
 
   it('can convert inline time series (not grouped) to data frame', () => {
@@ -102,7 +105,7 @@ describe('DataFrameUtils', function () {
       id: 'products/77-A',
     });
 
-    const rawTimes = rawResults.map((x) => x.Timestamp);
+    const rawTimes = rawResults.map((x) => dateTime(x.Timestamp));
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
     const rawValues = rawResults.map((x) => x.Values[0]);
@@ -171,7 +174,7 @@ describe('DataFrameUtils', function () {
       id: 'products/77-A',
     });
 
-    const rawTimes = rawResults.map((x) => x.Timestamp);
+    const rawTimes = rawResults.map((x) => dateTime(x.Timestamp));
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
     const rawValues = rawResults.map((x) => x.Values[0]);
@@ -308,7 +311,7 @@ describe('DataFrameUtils', function () {
       id: 'employees/6-A',
     });
 
-    const rawTimes = rawResults.map((x) => x.Timestamp);
+    const rawTimes = rawResults.map((x) => dateTime(x.Timestamp));
     expect(timeField.values.toArray()).toEqual(rawTimes);
 
     const rawValues = rawResults.map((x) => x.Values[0]);

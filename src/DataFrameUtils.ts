@@ -6,16 +6,25 @@ import {
   TimeSeriesResultType,
 } from './types';
 import {
+  ArrayDataFrame,
   DataFrame,
   DataFrameDTO,
-  dateTime,
   DateTime,
+  dateTime,
   FieldDTO,
   FieldType,
   MutableDataFrame,
   toDataFrame,
 } from '@grafana/data';
 import { Labels } from '@grafana/data/types/data';
+
+function shouldRegisterTimeConverter(frame: DataFrame): boolean {
+  return frame instanceof ArrayDataFrame && !!frame.fields.find((x) => x.name.toLocaleLowerCase() === 'time');
+}
+
+function toDateConverter(x: any) {
+  return x ? dateTime(x) : null;
+}
 
 export function responseToDataFrame(response: QueryResponseDto): DataFrame[] {
   if (response.TimeSeriesFields?.length === 0) {
@@ -40,7 +49,17 @@ export function responseToDataFrame(response: QueryResponseDto): DataFrame[] {
     return frames;
   }
 
-  return [toDataFrame(response.Results)];
+  const dataFrame = toDataFrame(response.Results);
+
+  // looks like grafana has issues with dates as iso
+  if (shouldRegisterTimeConverter(dataFrame)) {
+    const timeField = dataFrame.fields.find((x) => x.name.toLocaleLowerCase() === 'time');
+    if (timeField && timeField.values) {
+      (timeField.values as any).converter = toDateConverter;
+    }
+  }
+
+  return [dataFrame];
 }
 
 function detectTimeSeriesResultType(dto: TimeSeriesQueryResultDto): TimeSeriesResultType {
@@ -186,7 +205,7 @@ function groupedTimeSeriesToDataFrame(
 
 function rawTimeSeriesToDataFrame(data: TimeSeriesQueryResultDto, id: string, alias: string | undefined): DataFrame {
   const results = data.Results as TimeSeriesRawItemResultDto[];
-  const timeValues: string[] = [];
+  const timeValues: DateTime[] = [];
   const timeField: FieldDTO = {
     name: 'timestamp',
     type: FieldType.time,
@@ -217,7 +236,7 @@ function rawTimeSeriesToDataFrame(data: TimeSeriesQueryResultDto, id: string, al
   });
 
   results.forEach((result) => {
-    timeValues.push(result.Timestamp);
+    timeValues.push(dateTime(result.Timestamp));
     for (let i = 0; i < valuesCount; i++) {
       allValues[i].push(result.Values[i]);
     }
