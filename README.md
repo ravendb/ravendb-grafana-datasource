@@ -56,7 +56,7 @@ The Name results will populate the Grafana variable values.
 from 'Products' select distinct Name 
 ```
 
-![DefineQueryVariable](https://github.com/ravendb/ravendb-grafana-datasource/img/defineQueryVariable.png)
+![DefineQueryVariable](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/defineQueryVariable.png)
 
 ### Reference Grafana variable in a query
 Once the Grafana variable is defined, it can be used within the RQL query.  
