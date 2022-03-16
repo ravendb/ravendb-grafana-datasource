@@ -31,7 +31,8 @@ All query examples bellow are based on RavenDB's [sample data](https://ravendb.n
 3. Enter your secure RavenDB server URL.
 4. Toggle on TLS Client Auth.
 5. Enter the server name.  
-   The above example refers to a server in RavenDB Cloud. Replace 'danielle9897' with your own ID.  
+   The above example refers to a free server instance in RavenDB Cloud.  
+   Replace it with your own hostname.
 6. Enter the certificate Public Key (starts with _-----BEGIN CERTIFICATE-----_)  
    Can be taken from the *.pem file (see below).  
 7. Enter the certificate Private Key (starts with _-----BEGIN RSA PRIVATE KEY-----_)  
