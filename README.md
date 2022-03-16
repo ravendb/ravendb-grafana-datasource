@@ -13,10 +13,46 @@ All query examples bellow are based on RavenDB's [sample data](https://ravendb.n
  
 ![Screen](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/dashboard_screen.png)
 
-# Set RavenDB as your data source
-![SetDataSource](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/SetDataSource.png)
+# Set RavenDB as your data source - Unsecure server
 
-[//]: # (![SetDataSource]&#40;../ravendb-grafana-datasource/img/SetDataSource.png&#41;)
+![unsecure settings](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/unsecureSettings.png)
+
+1. Enter a name for this data source settings.
+2. Enter the database name from which to retrieve data.
+3. Enter your unsecure RavenDB server URL.
+4. Click Save & test to test and save this configuration.
+
+# Set RavenDB as your data source - Secure server
+
+![secure settings](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/secureSettings.png)
+
+1. Enter a name for this data source settings.
+2. Enter the database name from which to retrieve data.
+3. Enter your secure RavenDB server URL.
+4. Toggle on TLS Client Auth.
+5. Enter the server name.  
+   The above example refers to a free server instance in RavenDB Cloud.  
+   Replace it with your own hostname.
+6. Enter the certificate Public Key (starts with _-----BEGIN CERTIFICATE-----_)  
+   Can be taken from the *.pem file (see below).  
+7. Enter the certificate Private Key (starts with _-----BEGIN RSA PRIVATE KEY-----_)  
+   Can be taken from the *.key file (see below).
+8. Click Save & test to test and save this configuration.
+
+### How to get the certificate parts
+
+Download the certificate from your product instance on [RavenDB Cloud](https://cloud.ravendb.net).  
+
+![download certificate](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/downloadCert.png)
+
+Open the downloaded zip file.  
+The certificate parts needed for the Grafana settings are found under the _PEM_ folder.
+
+![pem folder](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/pemFolder.png)
+
+* *.client.certificate.crt => the certificate itself
+* *.client.certificate.key => contains the private key
+* *.client.certificate.pem => contains both private & public key
 
 # Querying Features
 * **RQL**  
