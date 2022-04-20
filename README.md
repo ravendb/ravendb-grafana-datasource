@@ -23,13 +23,14 @@ Please refer to: [Monitoring RavenDB Metrics](https://ravendb.net/docs/article-p
 # Install the RavenDB data source plugin
 
 1. Download latest Grafana from [here](https://grafana.com/grafana/download).
-2. Download the latest RavenDB data source plugin zip file (**ravendb-datasource-1.0.0.zip**) from [here](https://github.com/ravendb/ravendb-grafana-datasource/releases).
+2. Download the latest RavenDB data source plugin zip file (**ravendb-datasource-1.x.x.zip**) from [here](https://github.com/ravendb/ravendb-grafana-datasource/releases).
 3. Extract the plugin zip file into the following folder in your Grafana working directory:  
    `$GRAFANA_WORKING_DIR/data/plugins`
 4. Open your Grafana configuration file, located under the 'conf' folder and apply the following:  
-   Edit the `[Plugins]` section - add `ravendb-datasource` as an unsigned plugin.  
+   Edit the [Plugins] section - add **ravendb-datasource** as an unsigned plugin:  
+   `allow_loading_unsigned_plugins = ravendb-datasource`  
    ![addUnsignedPlugin](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/addUnsignedPlugin.png)
-5. Run Grafana - the RavenDB plugin will now show in the installed plugins list.  
+5. Run Grafana - the RavenDB plugin will now show in the installed data sources plugins list.  
    ![RavenDBPlugin](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/RavenDBPlugin.png)
 
 # Set RavenDB as your data source - Unsecure server
