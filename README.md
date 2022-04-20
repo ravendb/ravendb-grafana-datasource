@@ -9,9 +9,29 @@
 For monitoring metrics of a RavenDB instance (not its data) use the RavenDB Telegraf plugin.  
 Please refer to: [Monitoring RavenDB Metrics](https://ravendb.net/docs/article-page/latest/http/server/administration/monitoring).
 
-All query examples bellow are based on RavenDB's [sample data](https://ravendb.net/docs/article-page/latest/csharp/studio/database/tasks/create-sample-data).
- 
+**In this readme**:
+* [Sample dashboard showing data from RavenDB](#sample-dashboard-showing-data-from-ravendb)
+* [Install the RavenDB data source plugin](#install-the-ravendb-data-source-plugin)
+* [Set RavenDB as your data source - Unsecure server](#set-ravendb-as-your-data-source---unsecure-server)
+* [Set RavenDB as your data source - Secure server](#set-ravendb-as-your-data-source---secure-server)
+* [Querying Features](#querying-features)
+
+# Sample dashboard showing data from RavenDB
+
 ![Screen](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/dashboard_screen.png)
+
+# Install the RavenDB data source plugin
+
+1. Download latest Grafana from [here](https://grafana.com/grafana/download).
+2. Download the latest RavenDB data source plugin zip file (**ravendb-datasource-1.x.x.zip**) from [here](https://github.com/ravendb/ravendb-grafana-datasource/releases).
+3. Extract the plugin zip file into the following folder in your Grafana working directory:  
+   `$GRAFANA_WORKING_DIR/data/plugins`
+4. Open your Grafana configuration file, located under the 'conf' folder and apply the following:  
+   Edit the [Plugins] section - add **ravendb-datasource** as an unsigned plugin:  
+   `allow_loading_unsigned_plugins = ravendb-datasource`  
+   ![addUnsignedPlugin](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/addUnsignedPlugin.png)
+5. Run Grafana - the RavenDB plugin will now show in the installed data sources plugins list.  
+   ![RavenDBPlugin](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/RavenDBPlugin.png)
 
 # Set RavenDB as your data source - Unsecure server
 
@@ -69,6 +89,7 @@ The certificate parts needed for the Grafana settings are found under the _PEM_ 
 
 
 * **Examples**  
+  All query examples bellow are based on RavenDB's [sample data](https://ravendb.net/docs/article-page/latest/csharp/studio/database/tasks/create-sample-data).  
   [A simple collecton query](#a-simple-collection-query)  
   [Generate values for a Grafana variable](#generate-values-for-a-grafana-variable)  
   [Reference Grafana variable in a query](#reference-grafana-variable-in-a-query)  
