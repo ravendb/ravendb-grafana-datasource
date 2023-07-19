@@ -33,6 +33,16 @@ Please refer to: [Monitoring RavenDB Metrics](https://ravendb.net/docs/article-p
 5. Run Grafana - the RavenDB plugin will now show in the installed data sources plugins list.  
    ![RavenDBPlugin](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/RavenDBPlugin.png)
 
+# Run on Docker now
+
+All you need is [docker-compose.yml](docker-compose.yml) from this repository. Then inside the directory you downloaded it to run the following command:
+
+```
+$ docker-compose up -d
+```
+
+It is going to start Grafana with RavenDB plugin already installed for you on port `3000` - http://localhost:3000.
+
 # Set RavenDB as your data source - Unsecure server
 
 ![unsecure settings](https://github.com/ravendb/ravendb-grafana-datasource/raw/main/src/img/unsecureSettings.png)

@@ -1,0 +1,21 @@
+version: "3"
+services:
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_PATHS_PLUGINS=/tmp/grafana-plugins
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=ravendb-datasource
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /tmp/grafana-plugins
+        wget -O /tmp/grafana-plugins/ravendb.zip https://github.com/ravendb/ravendb-grafana-datasource/releases/download/v1.0.0/ravendb-datasource-1.0.0.zip
+        unzip /tmp/grafana-plugins/ravendb.zip -d /tmp/grafana-plugins
+        ls /tmp/grafana-plugins
+        /run.sh
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
